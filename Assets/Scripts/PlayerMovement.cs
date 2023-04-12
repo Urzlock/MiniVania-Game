@@ -7,26 +7,31 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float runningSpeed = 2.0f;
     [SerializeField] float jumpSpeed = 5f;
+    [SerializeField] float climbSpeed = 5f;
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
     Animator animator;
     CapsuleCollider2D myCollider;
+    BoxCollider2D myFeetCollider;
+    float gravity;
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         myCollider = GetComponent<CapsuleCollider2D>();
+        gravity = myRigidbody.gravityScale;
+        myFeetCollider = GetComponent<BoxCollider2D>();
     }
 
     void Update()
     {
         Run();
         FlipSprite();
+        ClimbLadder();
     }
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-        Debug.Log(moveInput);
     }
 
     void Run()
@@ -55,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     void OnJump(InputValue value)
     {
         //Si el espacio/boton del mando es presionado
-        if (!myCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             return;
         }
@@ -65,5 +70,18 @@ public class PlayerMovement : MonoBehaviour
             //myCollider.IsTouchingLayers();
         }
     }
-
+    void ClimbLadder()
+    {
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        {
+            animator.SetBool("isClimbing", false);
+            myRigidbody.gravityScale = gravity;
+            return;
+        }
+        Vector2 climbVelocity = new Vector2(myRigidbody.velocity.x, moveInput.y * climbSpeed);
+        myRigidbody.velocity = climbVelocity;
+        bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon;
+        animator.SetBool("isClimbing", playerHasVerticalSpeed);
+        myRigidbody.gravityScale = 0;
+    }
 }
