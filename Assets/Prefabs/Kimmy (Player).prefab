@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 229017871}
   m_Layer: 8
   m_Name: Kimmy (Player)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +34,8 @@ Transform:
   m_LocalPosition: {x: -14.17, y: 0.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7558606039387370647}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -97,7 +98,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 921446967
-  m_SortingLayer: 5
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 1611710356, guid: 019ee4502d69ba1489c764b550c6b6f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -192,6 +193,8 @@ MonoBehaviour:
   runningSpeed: 7
   jumpSpeed: 20
   climbSpeed: 5
+  bullet: {fileID: 4166732885665723642, guid: 92b0e114c066d5e4e9739b7b1667d4ab, type: 3}
+  gun: {fileID: 7558606039387370647}
 --- !u!61 &229017871
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -201,11 +204,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 1342334650903388432}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d33acbc8f449a0d4dafbc9e66eb9fef6, type: 2}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.027952254, y: -0.49058586}
+  m_Offset: {x: -0.027952254, y: -0.49941564}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -216,5 +219,36 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45457876, y: 0.079829335}
+  m_Size: {x: 0.45457876, y: 0.09748888}
   m_EdgeRadius: 0
+--- !u!1 &1663500462700407098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7558606039387370647}
+  m_Layer: 0
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7558606039387370647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663500462700407098}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.216, y: -0.235, z: -11.842213}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1342334650903388437}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

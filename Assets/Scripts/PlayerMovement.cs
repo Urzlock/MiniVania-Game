@@ -5,9 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    bool isDead = false;
     [SerializeField] float runningSpeed = 2.0f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float climbSpeed = 5f;
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform gun;
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
     Animator animator;
@@ -25,12 +28,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
         Run();
         FlipSprite();
         ClimbLadder();
+        Die();
     }
     void OnMove(InputValue value)
     {
+        if (isDead)
+        {
+            return;
+        }
         moveInput = value.Get<Vector2>();
     }
 
@@ -59,6 +71,10 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
+        if (isDead)
+        {
+            return;
+        }
         //Si el espacio/boton del mando es presionado
         if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
@@ -67,7 +83,6 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed)
         {
             myRigidbody.velocity += new Vector2(0f, jumpSpeed);
-            //myCollider.IsTouchingLayers();
         }
     }
     void ClimbLadder()
@@ -83,5 +98,25 @@ public class PlayerMovement : MonoBehaviour
         bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon;
         animator.SetBool("isClimbing", playerHasVerticalSpeed);
         myRigidbody.gravityScale = 0;
+    }
+    void Die()
+    {
+        if (myCollider.IsTouchingLayers(LayerMask.GetMask("Enemies","Hazards")))
+        {
+            isDead = true;
+            Vector2 deathVelocity = new Vector2(-2.5f*myRigidbody.velocity.x, 20f);
+            myRigidbody.velocity = deathVelocity;
+            animator.SetTrigger("Dying");
+            FindObjectOfType<GameSession>().ProcessPlayerDeath();
+
+        }
+    }
+    void OnFire(InputValue value)
+    {
+        if (isDead)
+        {
+            return;
+        }
+        Instantiate(bullet,gun.position,transform.rotation);
     }
 }

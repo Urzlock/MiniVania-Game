@@ -329,6 +329,28 @@
                 },
                 {
                     "name": "",
+                    "id": "d22e0401-be07-441f-8592-22380ad927ca",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a42423c0-d790-46bf-a23b-1f9b770d7dce",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "817a6c1a-7644-48d5-b6a4-feef9fc1e691",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
